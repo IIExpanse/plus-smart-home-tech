@@ -55,6 +55,7 @@ public class EventServiceImpl implements EventService {
                 log.debug("Sending hub event: {}", event);
                 kafkaProducer.send(hubEventTopic, AvroSerializable.toAvroBytes(hubEventAvro, log));
                 log.debug("Sensor hub event sent: {}", event);
+                return;
             }
             kafkaProducer.send(hubEventTopic, AvroSerializable.toAvroBytes(hubEventAvro));
         } catch (IOException e) {
