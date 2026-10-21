@@ -1,12 +1,12 @@
 package ru.yandex.practicum.telemetry.collector.kafka.producer.impl;
 
-import org.springframework.kafka.core.KafkaTemplate;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.telemetry.collector.kafka.producer.KafkaProducerBase;
+import ru.yandex.practicum.telemetry.collector.kafka.producer.ProducerBase;
 
 @Component
-public class BytesValueNullKeyProducer extends KafkaProducerBase<Void, byte[]> {
-    public BytesValueNullKeyProducer(KafkaTemplate<Void, byte[]> kafkaTemplate) {
-        super(kafkaTemplate);
+public class BytesValueNullKeyProducer extends ProducerBase<Void, byte[]> {
+    public BytesValueNullKeyProducer(KafkaProducer<Void, byte[]> kafkaProducer) {
+        super(kafkaProducer);
     }
 }

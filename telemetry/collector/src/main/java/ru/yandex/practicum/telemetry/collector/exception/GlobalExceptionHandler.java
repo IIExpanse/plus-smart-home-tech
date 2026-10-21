@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(AvroSerializationException.class)
+    @ExceptionHandler({AvroSerializationException.class, KafkaProducerException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleException(Exception e) {
         log.error("Returning 500 code for exception: ", e);

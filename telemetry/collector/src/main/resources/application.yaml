@@ -9,15 +9,13 @@ logging:
           telemetry:
             collector: ${COLLECTOR_LOG_LEVEL:DEBUG}
 
-spring:
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
-
 collector:
   kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     topic:
       sensor-event: telemetry.sensors.v1
       hub-event: telemetry.hubs.v1
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      retries: 3
