@@ -1,0 +1,26 @@
+logging:
+  level:
+    ru:
+      yandex:
+        practicum:
+          telemetry:
+            aggregator: ${AGGREGATOR_LOG_LEVEL:DEBUG}
+
+aggregator:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    group-id: aggregator-service
+    consumer:
+      poll-timeout-ms: 1000
+      sensor-event:
+        bootstrap-servers: ${aggregator.kafka.bootstrap-servers}
+        group-id: ${aggregator.kafka.group-id}
+        topic: telemetry.sensors.v1
+        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value-deserializer: ru.yandex.practicum.telemetry.aggregator.deserializer.avro.SensorEventDeserializer
+    producer:
+      sensor-snapshot:
+        bootstrap-servers: ${aggregator.kafka.bootstrap-servers}
+        topic: telemetry.snapshots.v1
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: ru.yandex.practicum.telemetry.aggregator.serializer.avro.SensorsSnapshotSerializer
